@@ -44,7 +44,7 @@ export const bookappointment = (form)=>async dispatch => {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             console.log(error.response)
-            console.log('Error status:', error.response.status);
+            console.log('Error  status:', error.response.status);
             console.log('Error data:', error.response.data);
             console.log('Error headers:', error.response.headers);
             dispatch({
@@ -206,74 +206,6 @@ export const appointmentAction = (form,action)=>async dispatch => {
        
     }
 }
-
-//slot avaialable or not
-export const isSlotAvailable = (date)=>async dispatch => {
-    const config = {
-        headers : {
-            'Accept':'application/json',
-            'Content-Type':'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-            // 'X-CSRFToken':Cookies.get('csrftoken') no need when get request is made
-        }
-    };
-    
-   
-    const body = JSON.stringify(date);
- 
-    try {
-       
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/is-slot-available`,body,config)
-
-        if(res.data.error) {
-            dispatch({
-                type:APPOINTMENT_ACTION_FAIL,
-                payload:res.data
-            })
-        }
-        else {
-            console.log("ACT APPOINTMENT");
-            console.log(res);
-            
-            dispatch({
-                type:APPOINTMENT_ACTION_SUCCESS,
-                payload:res.data
-            })
-        }
-
-    } catch (error) {
-
-        if (error.response) {
-            const err = error.response;
-            console.log(err.data);
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response)
-            console.log('Error status:', error.response.status);
-            console.log('Error data:', error.response.data);
-            console.log('Error headers:', error.response.headers);
-            dispatch({
-                type:APPOINTMENT_ACTION_FAIL,
-                payload:err.data
-            })
-          } else if (error.request) {
-            dispatch({
-                type:APPOINTMENT_ACTION_FAIL,
-                payload:{"status":"failed","message":"No response received"}
-            })
-          } else {
-            // Something happened in setting up the request that triggered an Error
-           dispatch({
-                type:APPOINTMENT_ACTION_FAIL,
-                payload:{"status":"failed","message":"Unable to book appointment"}
-            })
-          }
-
-
-       
-    }
-}
-
 
 
 

@@ -69,7 +69,7 @@ const RegisterComponent = ({isAuthenticated,status,message, register}) => {
     const nitcIdInfo = () => {
         return (
             <>
-                <div className="form-group mt-3 shadow p-3 mb-5 bg-white rounded" style={styleCard}>
+                <div className="form-group mt-3 " style={styleCard}>
                     <input type="text"
                         className="form-control"
                         placeholder="Institute ID"

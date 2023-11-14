@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bookappointment } from "../actions/dashboardactivity";
-import { isSlotAvailable } from "../actions/dashboardactivity";
-const CalendarTComponent = ({ isAuthenticated, curr_usertype_id, dashboard_status, dashboard_message,bookappointment,isSlotAvailable }) => {
+
+const CalendarTComponent = ({ isAuthenticated, curr_usertype_id, dashboard_status, dashboard_message,bookappointment }) => {
 
     const navigate = new useNavigate();
     const today = new Date();
@@ -39,6 +39,10 @@ const CalendarTComponent = ({ isAuthenticated, curr_usertype_id, dashboard_statu
         bookappointment(formData);
 
     }
+
+
+
+
 
 
     //emergency checkbox
@@ -83,16 +87,10 @@ const CalendarTComponent = ({ isAuthenticated, curr_usertype_id, dashboard_statu
 
     }
 
-    const onChangeDate = (e)=>{
-
-        //fetch if slots are available or not
-        isSlotAvailable(date);
-        setFormData({...formData,date:date});
-    }
 
 
     return (
-        <div className="col-sm-6 card container mt-5 shadow p-3 mb-5 bg-white rounded">
+        <div className="col-sm-6 card container mt-5">
             <div className="card-body">
                 <h1 className="card-title">Appointment Booking</h1>
                 {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
@@ -107,7 +105,7 @@ const CalendarTComponent = ({ isAuthenticated, curr_usertype_id, dashboard_statu
                         Confirm Password:
                     </label> */}
                         {/* <label class="control-label" for="date">Date</label> */}
-                        <input className="form-control" value={date} id="date" name="date" onChange={e => { onChangeDate(e) }} placeholder="MM/DD/YYY" type="date" />
+                        <input className="form-control" value={date} id="date" name="date" onChange={e => { onChange(e) }} placeholder="MM/DD/YYY" type="date" />
                     </div>
                     <div className="form-group mt-3 ">
                         <label for="time">Select a time:</label>
@@ -189,7 +187,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-const CalendarT = connect(mapStateToProps, {bookappointment,isSlotAvailable})(CalendarTComponent);
+const CalendarT = connect(mapStateToProps, {bookappointment})(CalendarTComponent);
 
 export default CalendarT;
 
